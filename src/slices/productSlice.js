@@ -1,20 +1,21 @@
-import { createSlice, configureStore } from '@reduxjs/toolkit'
-import { fetchData,fetchSingleProduct } from '../actions/actions';
-
-
-
-
-
+import { createSlice, configureStore } from "@reduxjs/toolkit";
+import { fetchData, fetchSingleProduct } from "../actions/actions";
 
 const productsSlice = createSlice({
-  name: 'products',
+  name: "products",
   initialState: {
-    productsData:[], 
-    loading:false,
-    error:null,
-    singleProduct : {}
+    productsData: [],
+    loading: false,
+    error: null,
+    singleProduct: {},
+    searchQuery: null,
   },
-  reducers: {},
+  reducers: {
+    filterProducts: function (state, action) {},
+    setSearchQuery: function (state, action) {
+      state.searchQuery = action.payload;
+    },
+  },
 
   extraReducers: (builder) => {
     builder
@@ -29,26 +30,25 @@ const productsSlice = createSlice({
       .addCase(fetchData.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-      }).addCase(fetchSingleProduct.pending,(state,action)=>{
+      })
+      .addCase(fetchSingleProduct.pending, (state, action) => {
         state.loading = true;
         state.error = null;
-      }).
-      addCase(fetchSingleProduct.fulfilled,(state,action)=>{
+      })
+      .addCase(fetchSingleProduct.fulfilled, (state, action) => {
         state.loading = false;
         state.singleProduct = action.payload;
-      }).addCase(fetchSingleProduct.rejected, (state, action) => {
+      })
+      .addCase(fetchSingleProduct.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-      })
-
-
+      });
   },
- 
+});
 
-  
-})
+export const { setSearchQuery } = productsSlice.actions;
 
 // export const { incremented, decremented } = cartSlice.actions
-export default productsSlice.reducer
-
-
+export const getSearchQuery = (state) => state.products.searchQuery;
+export const getProductData = (state) => state.products.productsData;
+export default productsSlice.reducer;

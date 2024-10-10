@@ -18,9 +18,9 @@ const Profile = () => {
     return null;
   }
   const { name = "Guest", email = "No email available", profilePic } = userInfo;
-  function handleLogout(){
+  function handleLogout() {
     Cookies.remove("token");
-    navigate("/login")
+    navigate("/login");
   }
   return (
     <div className="h-screen bg-gray-200 dark:bg-gray-800 flex flex-wrap items-center justify-center">
@@ -59,11 +59,17 @@ const Profile = () => {
           <div className="flex bg-gray-50">
             <div className="text-center w-full p-4 hover:bg-gray-100 flex justify-evenly">
               <Link to="/changepassword">
-                <button type="button" className="ml-9 bg-cyan-400 p-4 cursor-pointer">
+                <button
+                  type="button"
+                  className="ml-9 bg-cyan-400 p-4 cursor-pointer"
+                >
                   Change Password
                 </button>
               </Link>
-              <TbLogout2  onClick={handleLogout} className="h-11 w-11 cursor-pointer mt-2 text-red-400 hover:text-red-800"/>
+              <TbLogout2
+                onClick={handleLogout}
+                className="h-11 w-11 cursor-pointer mt-2 text-red-400 hover:text-red-800"
+              />
             </div>
           </div>
         </div>
