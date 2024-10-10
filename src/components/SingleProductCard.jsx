@@ -2,29 +2,34 @@ import React, { useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import ButtonPlusMinus from './ButtonPlusMinus'
 import { addToCart } from '../slices/cartslice'
+import { FaStar } from "react-icons/fa6";
 
 export default function SingleProductCard({ item }) {
 
   const { currentCurrencyName, currentCurrencyPrice } = useSelector((state) => state.currency)
+  const dispatch = useDispatch()
 
   const { cartData } = useSelector((state) => state.cart)
 
-  const data = cartData.find((elem) => elem.id == item.id);
+  const data = cartData.find((elem) => elem.id == item._id);
 
 
-  const dispatch = useDispatch()
+console.log(item);
+
+
   return (
     <>
       {item && <div className='bg-white flex gap-20 p-20'>
         <div className='flex flex-col justify-center bg-gray-200 rounded p-20 shadow-lg shadow-gray-500/50' >
-          <p className='text-2xl text-gray-500' > <span className='text-gray-800 font-bold '>Title : </span>{item?.title}</p>
+          <p className='text-2xl text-gray-500' > <span className='text-gray-800 font-bold '>Title : </span>{item?.name}</p>
           <p className='text-2xl text-gray-500' > <span className='text-gray-800 font-bold '>Category : </span>{item?.category}</p>
 
           <p className='text-2xl text-gray-500' > <span className='text-gray-800 font-bold '>Brand : </span>{item?.brand}</p>
-          <p className='text-2xl text-gray-500' > <span className='text-gray-800 font-bold '>Color : </span>{item?.color}</p>
 
-          <p className='text-2xl text-gray-500' > <span className='text-gray-800 font-bold '>model : </span>{item?.model}</p>
+          <p className='text-2xl text-gray-500' > <span className='text-gray-800 font-bold '>Available : </span>{item?.inStock ? "Yes" : "No"}</p>
+          <p className='text-2xl text-gray-500' > <span className='text-gray-800 font-bold '>In Stock : </span>{item?.inventory}</p>
           <p className='text-2xl text-gray-500' ><span className='text-gray-800 font-bold '>Description : </span>{item?.description}</p>
+          {item.totalRating ? <div className='text-2xl text-gray-500 flex  items-center' ><span className='flex text-gray-800 font-bold '>Rating : <FaStar className='mx-2 text-yellow-500'/>{item?.totalRating}</span></div>:""}
           <div className='text-3xl text-red-500 my-2 ' >
             {item.discount ? (
               <>
@@ -59,7 +64,7 @@ export default function SingleProductCard({ item }) {
           )}
         </div>
      
-        <img src={item.image} alt="" srcSet="" className='object-fit w-[30vw]' />
+        <img src={item.url} alt="" srcSet="" className='object-fit w-[30vw]' />
       </div>}
     </>
   )

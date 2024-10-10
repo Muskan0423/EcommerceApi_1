@@ -19,9 +19,9 @@ const Card = ({ item }) => {
 
   return (
     <div className="w-96 ml-2 flex flex-col items-center bg-white shadow-md rounded-xl transition-transform duration-500 hover:scale-105 hover:shadow-xl">
-      <Link to={`/products/${item.id}`} className="w-full">
+      <Link to={`/products/${item._id}`} className="w-full">
         <img 
-          src={item.image}
+          src={item.url}
           alt="Product" 
           className="h-96 w-96 rounded-t-xl" 
         />   </Link>

@@ -20,6 +20,7 @@ export default function SingleProduct() {
 
 
 
+
   if (loading){ return <div className='h-[100vh] flex justify-center items-center'> <HashLoader
   color="green"
   loading={loading}
@@ -33,7 +34,7 @@ export default function SingleProduct() {
   return (
 <>
 
-    {singleProduct.title &&  <SingleProductCard item={singleProduct} />}
+    {singleProduct &&  <SingleProductCard item={singleProduct} />}
 </>
   )
 }
