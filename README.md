@@ -1,0 +1,5 @@
+"https://fakestoreapi.com/products?limit=4"
+"https://jsonplaceholder.typicode.com/posts"
+"https://jsonplaceholder.typicode.com/posts/"
+"https://fakestoreapi.com/products"
+id,"https://fakestoreapi.com/products/"
