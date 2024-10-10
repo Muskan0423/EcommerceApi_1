@@ -31,7 +31,7 @@ export const fetchBlog = createAsyncThunk(
   export const fetchSingleProduct = createAsyncThunk(
     'data/fetchSingleProduct',
     async (id) => {
-      const response = await fetch(`https://ecommerce-api-8ga2.onrender.com/api/product?id=${id}`);
+      const response = await fetch(`https://ecommerce-api-8ga2.onrender.com/api/product`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
