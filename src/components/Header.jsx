@@ -40,7 +40,7 @@ useEffect(()=>{
   
 },[dispatch])
 useEffect(()=>{
-    if(cartData?.length > 0){
+    if(cartData){
       localStorage.setItem("cart",JSON.stringify(cartData))
     }
 },[cartData])
@@ -76,7 +76,7 @@ dispatch(currencyChange(e.target.value));
 
   return (
 
-    <div className=' bg-gradient-to-t from-slate-500 to-slate-800 flex justify-between items-center h-20 max-w-full mx-auto px-4 text-white'>
+    <div className=' bg-gradient-to-t from-slate-500 to-slate-800 flex justify-between items-center h-[6rem] max-w-full mx-auto px-4 text-white'>
     <h1 className='text-3xl font-bold'>
       <Link to="/">Ecommerce</Link>
     </h1>
@@ -84,7 +84,7 @@ dispatch(currencyChange(e.target.value));
     <div className='flex items-center space-x-4 ml-auto'> 
       <ul className='flex items-center space-x-4'> 
         {navItems.map(item => (
-          <Link to={item.nav} key={item.id}> 
+          <Link to={item.nav} key={item._id}> 
             <li
               className='p-2 hover:bg-white rounded-xl cursor-pointer duration-300 hover:text-black'
             >

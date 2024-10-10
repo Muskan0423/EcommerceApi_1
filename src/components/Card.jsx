@@ -10,7 +10,7 @@ const Card = ({ item }) => {
   const dispatch = useDispatch()
   const {cartData} = useSelector((state)=>state.cart)
 
-  const data = cartData.find((elem) => elem.id == item.id);
+  const data = cartData.find((elem) => elem._id == item._id);
 
 
   

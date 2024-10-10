@@ -27,7 +27,10 @@ const cartSlice = createSlice({
 ,
 
 deleteFormCart:function(state,action){
-      state.cartData = state.cartData.filter((elem) => elem.id !== action.payload)
+  console.log(action.payload);
+  
+      state.cartData = state.cartData.filter((elem) => elem._id !== action.payload)
+      
     }
 
   },
