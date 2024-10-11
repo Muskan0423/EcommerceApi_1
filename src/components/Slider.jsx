@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import image1 from '../Assests/Image1.webp'
-import image2 from '../Assests/Image4.jpg'
-import image3 from '../Assests/Images5.jpeg'
+import image2 from '../Assests/Image10.avif'
+import image3 from '../Assests/Image11.webp'
 
 const Carousel = () => {
   const items = [

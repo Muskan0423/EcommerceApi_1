@@ -18,6 +18,7 @@ import Checkout from "./Pages/Checkout";
 import PrivateRouteHandle from "./components/PrivateRouteHandle";
 import Profile from "./Pages/Profile";
 import ChangePassword from "./Pages/ChangePassword";
+import Products from "./Pages/Products";
 
 const router = createBrowserRouter([
   {
@@ -53,7 +54,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <Product />,
+            element: <Products/>,
           },
           {
             path: ":id",

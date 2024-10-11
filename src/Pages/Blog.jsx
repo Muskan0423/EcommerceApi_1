@@ -92,16 +92,6 @@ export default function Blog() {
     <div className="bloom bloom2"></div>
   </div>
 </button>
-
-          // <button
-          //   key={index + 1}
-          //   onClick={() => handlePageChange(index + 1)}
-          //   className={`mx-1 px-4 py-2 border rounded ${
-          //     currentPage === index + 1 ? 'bg-cyan-500 text-white' : 'bg-white text-cyan-500'
-          //   }`}
-          // >
-          //   {index + 1}
-          // </button>
         ))}
       </div>
     </div>

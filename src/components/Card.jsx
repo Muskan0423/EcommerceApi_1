@@ -18,7 +18,7 @@ const Card = ({ item }) => {
       <Link to={`/products/${item._id}`} className="w-full">
         <img src={item.url} alt="Product" className="h-96 w-96 rounded-t-xl" />{" "}
       </Link>
-      <div className="px-4 py-3 w-full">
+      <div className="px-4 py-3 w-full bg-gray-300">
         <span className="text-gray-700 mr-3 uppercase text-xs">
           {item.title}
         </span>

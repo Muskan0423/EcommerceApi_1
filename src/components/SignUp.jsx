@@ -90,6 +90,20 @@ function Signup() {
               
               </div>
             </div>
+            <div>
+              <label className="text-gray-800 text-sm mb-2 block">Email Id</label>
+              <div className="relative flex items-center">
+                <input name="email" type="email" required value={email} onChange={(e) => dispatch(emailHandler(e.target.value))} className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-blue-500" placeholder="Enter email" />
+              
+              </div>
+            </div>
+            <div>
+              <label className="text-gray-800 text-sm mb-2 block">Email Id</label>
+              <div className="relative flex items-center">
+                <input name="email" type="email" required value={email} onChange={(e) => dispatch(emailHandler(e.target.value))} className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-blue-500" placeholder="Enter email" />
+              
+              </div>
+            </div>
 
             <div>
               <label className="text-gray-800 text-sm mb-2 block">Password</label>
