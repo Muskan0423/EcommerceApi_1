@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../actions/actions";
 import HashLoader from "react-spinners/HashLoader";
 import Card from "../components/Card";
-import FilterComponent from "../components/FilterComponent";
 
 
 export default function Product() {
@@ -34,7 +33,6 @@ export default function Product() {
 
   return (
     <div>
-      <FilterComponent />
       <h3 className="text-bold text-4xl font-bold text-center  py-5 uppercase">
         Products
       </h3>
