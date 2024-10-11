@@ -63,8 +63,9 @@ size={150}
 aria-label="Loading Spinner"
 data-testid="loader"
 /></div>;
-if (error) return <div>Error: {error}</div>;
+// if (error) return <div>Error: {error}</div>;
 
+console.log(error);
 
 
 function currencyHandler(e) {
@@ -94,7 +95,7 @@ dispatch(currencyChange(e.target.value));
   
      
   
-      <select
+     {error ? "": <select
         name="currency"
         className="bg-transparent border border-white text-white px-4 rounded cursor-pointer" 
         onChange={currencyHandler}
@@ -103,7 +104,7 @@ dispatch(currencyChange(e.target.value));
         {availableCurrency.map((item, index) => (
           <option key={index} value={item}>{item}</option>
         ))}
-      </select>
+      </select>}
     </div>
   </div>
   

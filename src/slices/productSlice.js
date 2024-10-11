@@ -9,11 +9,32 @@ const productsSlice = createSlice({
     error: null,
     singleProduct: {},
     searchQuery: null,
+    maxPrice:0,
+    minPrice:0,
+    product:{categories:[],brands:[]}
   },
   reducers: {
-    filterProducts: function (state, action) {},
+    filterProducts: function (state, action) {
+      state.productsData?.filter(val => {
+        const isNewCategory = !state.product.categories.includes(val.category);
+        const isNewBrand = !state.product.brands.includes(val.brand);
+        const maxValue = val.price > state.maxPrice;
+        if (isNewCategory) state.product.categories.push(val.category);
+        if (isNewBrand) state.product.brands.push(val.brand);
+        if (maxValue) {
+           state.maxPrice=(val.price)
+        }
+        return !(isNewCategory && isNewBrand);
+    });
+    },
     setSearchQuery: function (state, action) {
       state.searchQuery = action.payload;
+    },
+    setMaxPrice:function(state,action){
+      state.maxPrice=action.payload
+    },
+    setMinPrice:function(state,action){
+      state.minPrice=action.payload
     },
   },
 
@@ -46,9 +67,8 @@ const productsSlice = createSlice({
   },
 });
 
-export const { setSearchQuery } = productsSlice.actions;
+export const { setSearchQuery ,setMaxPrice,setMinPrice,filterProducts} = productsSlice.actions;
 
-// export const { incremented, decremented } = cartSlice.actions
 export const getSearchQuery = (state) => state.products.searchQuery;
 export const getProductData = (state) => state.products.productsData;
 export default productsSlice.reducer;
