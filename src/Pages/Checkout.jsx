@@ -3,16 +3,17 @@ import { useLocation } from 'react-router-dom'
 import { nanoid } from 'nanoid'
 import Cookies from 'js-cookie';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserDetail, setUserdetail } from '../slices/userSlice';
+import { setUserdetail } from '../slices/userSlice';
 
 export default function Checkout() {
+    const dispatch=useDispatch();
     const location=useLocation();
     const d = new Date()
-    const userDetail=useSelector(getUserDetail);
-    const dispatch=useDispatch();
+    const {getUserDetail,nameVal,emailVal,passVal,userDetail}=useSelector((state)=>state.user);
     const userData = Cookies.get("token")
+
+
     useEffect(()=>{
-        const user=JSON.parse(userData);
          dispatch(setUserdetail({name:user?.name,email:user?.email}))
     },[userData?.email])
     const date = d.toLocaleString()

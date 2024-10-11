@@ -1,64 +1,64 @@
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { initializeApp } from 'firebase/app';
-import {  ref, set } from 'firebase/database';
-import { db } from '../firebase-Config/FirebaseConfig';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { emailHandler, getCredentials, getEmail, getName, getPassword, getValidate, nameHandler, passHandler, setCredentials, validation } from '../slices/userSlice';
+import { emailHandler,fNameHandler,lNameHandler,genderHandler, passHandler, setCredentials, validation, clearDetails } from '../slices/userSlice';
 import { Link, useNavigate } from "react-router-dom";
-import { firebaseConfig } from '../firebase-Config/FirebaseConfig';
-import bcrypt from "bcryptjs-react";
+import axios from "axios"
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+
+
+
+
 
 function Signup() {
-  const name = useSelector(getName);
-  const email = useSelector(getEmail);
-  const password = useSelector(getPassword);
-  const validate = useSelector(getValidate);
-  const credentials=useSelector(getCredentials);
+
+
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
+  const {fNameVal,lNameVal,passVal,emailVal,genderVal,validate} = useSelector((state)=> state.user)
 
-  async function handleSubmit(e) {
+
+ 
+
+
+   async function handleSubmit(e) {
     e.preventDefault();
-    const salt = bcrypt.genSaltSync(10)
-    dispatch(validation({ type: "signin" }));
+      dispatch(validation("signin"))
 
-    if (validate.length === 0 && name.length > 3 && password.length > 6 && email.length > 4) {
-      try {
-        const hashedPassword = bcrypt.hashSync(password, '$2a$10$CwTycUXWue0Thq9StjUM0u') 
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user=userCredential.user
-        await set(ref(db, "Users/" + user.uid), {
-          name,
-          email,
-          password
-        });
-        dispatch(setCredentials(""));
-        navigate("/login");
-      } catch (error) {
-        console.error("Signup error:", error.message);
-        dispatch(setCredentials("Email Aleady Used"))
+      const userData = {
+        firstname:fNameVal,lastname:lNameVal,gender:genderVal, email:emailVal, password:passVal,role:"user"
       }
+
+      console.log(userData);
+      
+    try {
+        const response = await axios.post("https://ecommerce-api-8ga2.onrender.com/api/user/register",userData,{ withCredentials: true });
+
+      
+console.log(response);
+
+
+      dispatch(clearDetails());
+
+    } catch (error) {
+      
+     console.log(error.message);
+     
     }
+
+      
+
+
+    
   }
 
+
+  
+  
   return (
     <>
-      {/* <form onSubmit={handleSubmit}>
-        <input type="text" required placeholder='Name' value={name} onChange={(e) => dispatch(nameHandler(e.target.value))} />
-        <br />
-        <input type="email" required placeholder='Email' value={email} onChange={(e) => dispatch(emailHandler(e.target.value))} />
-        <br />
-        <input type="password" placeholder='Password' required value={password} onChange={(e) => dispatch(passHandler(e.target.value))} />
-        <br />
-        <input type="submit" />
-        <br />
-        <p>{validate[0]}</p>
-        <p>{credentials}</p>
-      </form> */}
+     
       <div className="font-[sans-serif] bg-white max-w-4xl flex items-center mx-auto md:h-screen p-2">
       <div className="grid md:grid-cols-3 items-center shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-xl overflow-hidden">
         <div className="max-md:order-1 flex flex-col justify-center space-y-16 max-md:mt-16 min-h-full bg-gradient-to-r from-slate-500 to-slate-800 lg:px-8 px-4 py-4">
@@ -72,21 +72,37 @@ function Signup() {
         <form onSubmit={handleSubmit} className="md:col-span-2 w-full py-6 px-6 sm:px-16">
           <div className="mb-6">
             <h3 className="text-gray-800 text-2xl font-bold">Create an account</h3>
+            <h5 className='text-red-500'>{validate[0]}</h5>
           </div>
 
           <div className="space-y-6">
             <div>
-              <label className="text-gray-800 text-sm mb-2 block">Name</label>
+              <label className="text-gray-800 text-sm mb-2 block">First Name</label>
               <div className="relative flex items-center">
-                <input name="name" type="text" required value={name} onChange={(e) => dispatch(nameHandler(e.target.value))} className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-blue-500" placeholder="Enter name" />
+                <input name="fName" type="text"  value={fNameVal} onChange={(e) => dispatch(fNameHandler(e.target.value))} className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-blue-500" placeholder="Enter name" />
                
               </div>
             </div>
 
             <div>
+              <label className="text-gray-800 text-sm mb-2 block">Last Name</label>
+              <div className="relative flex items-center">
+                <input name="lName" type="text"  value={lNameVal} onChange={(e) => dispatch(lNameHandler(e.target.value))} className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-blue-500" placeholder="Enter name" />
+               
+              </div>
+            </div>
+
+
+          
+
+
+
+
+
+            <div>
               <label className="text-gray-800 text-sm mb-2 block">Email Id</label>
               <div className="relative flex items-center">
-                <input name="email" type="email" required value={email} onChange={(e) => dispatch(emailHandler(e.target.value))} className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-blue-500" placeholder="Enter email" />
+                <input name="email" type="email"  value={emailVal} onChange={(e) => dispatch(emailHandler(e.target.value))} className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-blue-500" placeholder="Enter email" />
               
               </div>
             </div>
@@ -103,21 +119,40 @@ function Signup() {
                 <input name="email" type="email" required value={email} onChange={(e) => dispatch(emailHandler(e.target.value))} className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-blue-500" placeholder="Enter email" />
               
               </div>
+            </div>
+
+
+
+            <div>
+            <label className="text-gray-800 text-sm mb-2 block">Select Gender</label>
+            <div className="relative flex items-center ">
+              <select name="gender p-5" id="" value={genderVal} onChange={(e)=>dispatch(genderHandler(e.target.value))}>
+                <option value="m">Male</option>
+                <option value="f">Female</option>
+                <option value="o">Other</option>
+                <option value="not">Not prefer to say</option>
+              </select>
+            </div>
+
             </div>
 
             <div>
               <label className="text-gray-800 text-sm mb-2 block">Password</label>
               <div className="relative flex items-center">
-                <input name="password" type="password" required value={password} onChange={(e) => dispatch(passHandler(e.target.value))} className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-blue-500" placeholder="Enter password" />
+                <input name="password" type="password"  value={passVal} onChange={(e) => dispatch(passHandler(e.target.value))} className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-blue-500" placeholder="Enter password" />
                
               </div>
             </div>
+
+           
+
+           
 
           
           </div>
 
           <div className="!mt-12">
-            <button type="submit" onSubmit={handleSubmit} className="w-full py-3 px-4 tracking-wider text-sm rounded-md text-white bg-slate-700 hover:bg-gray-800 focus:outline-none">
+            <button type="submit" className="w-full py-3 px-4 tracking-wider text-sm rounded-md text-white bg-slate-700 hover:bg-gray-800 focus:outline-none">
               Create an account
             </button>
           </div>

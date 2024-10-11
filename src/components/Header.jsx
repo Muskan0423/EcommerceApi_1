@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { currencyChange } from '../slices/currencySlice';
@@ -7,12 +6,12 @@ import { fetchCurrency } from '../actions/actions';
 import HashLoader from "react-spinners/HashLoader";
 import {updateCart} from "../slices/cartslice"
 import Cookies from "js-cookie";
-import { getLoggedUser, setLoggedUser } from '../slices/userSlice';
+import {  setLoggedUser } from '../slices/userSlice';
 
 const Header = () => {
   const dispatch=useDispatch()
   const cookieData=Cookies.get("token");
-  const loggedUser=useSelector(getLoggedUser);
+  const {userDetail}=useSelector(state=> state.user);
   const {cartData} = useSelector((state)=>state.cart)
   const navItems = [
     
@@ -20,7 +19,7 @@ const Header = () => {
     { id: 2, text: `Cart (${cartData ? cartData.length : 0})`, nav: "/cart" },
     { id: 3, text: 'Blog', nav: "/blog" },
     { id: 4, text: 'Contact', nav: "/contact" },
-    { id: 5, text: loggedUser?"Profile":'Login', nav: loggedUser?"/profile":"/login" },
+    { id: 5, text:userDetail?"Profile":'Login', nav: userDetail?"/profile":"/login" },
  
   ];
 
@@ -37,7 +36,6 @@ const availableCurrency =  currencyData.conversion_rates ? Object.keys(currencyD
   }
 useEffect(()=>{
   dispatch(fetchCurrency())
-  
 },[dispatch])
 useEffect(()=>{
     if(cartData){
